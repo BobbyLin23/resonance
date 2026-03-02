@@ -106,7 +106,7 @@ export const DashboardSidebar = () => {
     {
       title: "Voice cloning",
       icon: Volume2Icon,
-      onClick: () => {},
+      onClick: () => clerk.openOrganizationProfile(),
     },
   ];
 
