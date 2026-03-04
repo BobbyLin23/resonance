@@ -7,6 +7,7 @@ import { Slider } from "@/components/ui/slider";
 import { sliders } from "@/data/sliders";
 import { useTypedAppFormContext } from "@/hooks/use-app-form";
 import { ttsFormOptions } from "./text-to-speech-form";
+import { VoiceSelector } from "./voice-selector";
 
 export function SettingsPanelSettings() {
   const form = useTypedAppFormContext(ttsFormOptions);
@@ -16,9 +17,7 @@ export function SettingsPanelSettings() {
     <>
       {/* Voice Style Dropdown Section */}
       <div className="border-b border-dashed p-4">
-        <p className="text-sm text-muted-foreground">
-          Voice selector coming soon
-        </p>
+        <VoiceSelector />
       </div>
 
       {/* Voice Adjustments Section */}
@@ -39,7 +38,11 @@ export function SettingsPanelSettings() {
                   </div>
                   <Slider
                     value={[field.state.value]}
-                    onValueChange={(value) => field.handleChange(value[0])}
+                    onValueChange={(value) =>
+                      field.handleChange(
+                        Array.isArray(value) ? value[0] : value,
+                      )
+                    }
                     min={slider.min}
                     max={slider.max}
                     step={slider.step}
