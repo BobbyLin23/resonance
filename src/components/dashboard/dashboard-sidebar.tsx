@@ -27,8 +27,10 @@ import {
   SidebarMenuItem,
   SidebarRail,
   SidebarTrigger,
+  useSidebar,
 } from "../ui/sidebar";
 import { Skeleton } from "../ui/skeleton";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 interface MenuItem {
   title: string;
@@ -44,6 +46,8 @@ interface NavSectionProps {
 }
 
 function NavSection({ label, items, pathname }: NavSectionProps) {
+  const { state } = useSidebar();
+
   return (
     <SidebarGroup>
       {label && (
@@ -69,7 +73,6 @@ function NavSection({ label, items, pathname }: NavSectionProps) {
                     : false
                 }
                 onClick={item.onClick}
-                tooltip={item.title}
                 className="h-9 px-3 py-2 text-[13px] tracking-tight font-medium border border-transparent data-[active=true]:border-border data-[active=true]:shadow-[0px_1px_1px_0px_rgba(44,54,53,0.03),inset_0px_0px_0px_2px_white]"
               >
                 <item.icon />
@@ -106,7 +109,7 @@ export const DashboardSidebar = () => {
     {
       title: "Voice cloning",
       icon: Volume2Icon,
-      onClick: () => clerk.openOrganizationProfile(),
+      onClick: () => {},
     },
   ];
 
