@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useAppForm } from "@/hooks/use-app-form";
+import { useCheckout } from "@/hooks/use-checkout";
 import { useTRPC } from "@/trpc/client";
 
 const ttsFormSchema = z.object({
@@ -43,6 +44,8 @@ export function TextToSpeechForm({
 
   const trpc = useTRPC();
 
+  const { checkout } = useCheckout();
+
   const createMutation = useMutation(
     trpc.generations.create.mutationOptions({}),
   );
@@ -70,7 +73,16 @@ export function TextToSpeechForm({
         const message =
           error instanceof Error ? error.message : "Failed to generate audio";
 
-        toast.error(message);
+        if (message === "SUBSCRIPTION_REQUIRED") {
+          toast.error("Subscription required", {
+            action: {
+              label: "Subscribe",
+              onClick: () => checkout(),
+            },
+          });
+        } else {
+          toast.error(message);
+        }
       }
     },
   });
