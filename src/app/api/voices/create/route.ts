@@ -4,6 +4,7 @@ import { z } from "zod";
 import { VOICE_CATEGORIES } from "@/data/voice-categories";
 import type { VoiceCategory } from "@/generated/prisma/client";
 import { prisma } from "@/lib/db";
+import { env } from "@/lib/env";
 import { polar } from "@/lib/polar";
 import { uploadAudio } from "@/lib/r2";
 
@@ -167,7 +168,7 @@ export async function POST(request: Request) {
     .ingest({
       events: [
         {
-          name: "voice_creation",
+          name: env.POLAR_METER_VOICE_CREATION,
           externalCustomerId: orgId,
           metadata: {},
           timestamp: new Date(),
