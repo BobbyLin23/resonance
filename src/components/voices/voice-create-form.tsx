@@ -425,7 +425,9 @@ export function VoiceCreateForm({
                   </div>
                   <Select
                     value={field.state.value}
-                    onValueChange={field.handleChange}
+                    onValueChange={(value) =>
+                      field.handleChange(value ?? "")
+                    }
                   >
                     <SelectTrigger className="w-full pl-10">
                       <SelectValue placeholder="Select category..." />
