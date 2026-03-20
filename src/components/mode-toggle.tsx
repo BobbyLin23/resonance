@@ -11,10 +11,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useSidebar } from "./ui/sidebar";
 
 export function ModeToggle() {
   const { setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
+
+  const { state } = useSidebar();
 
   React.useEffect(() => setMounted(true), []);
 
@@ -25,6 +28,10 @@ export function ModeToggle() {
         <span className="sr-only">Toggle theme</span>
       </Button>
     );
+  }
+
+  if (state === "collapsed") {
+    return null;
   }
 
   return (
