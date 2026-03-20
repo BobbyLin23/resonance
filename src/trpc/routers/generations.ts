@@ -3,6 +3,7 @@ import { z } from "zod";
 import { TEXT_MAX_LENGTH } from "@/data/constants";
 import { chatterbox } from "@/lib/chatterbox-client";
 import { prisma } from "@/lib/db";
+import { env } from "@/lib/env";
 import { polar } from "@/lib/polar";
 import { uploadAudio } from "@/lib/r2";
 import { createTRPCRouter, orgProcedure } from "../init";
@@ -190,7 +191,7 @@ export const generationsRouter = createTRPCRouter({
         .ingest({
           events: [
             {
-              name: "tts_generation",
+              name: env.POLAR_METER_TTS_GENERATION,
               externalCustomerId: ctx.orgId,
               metadata: { characters: input.text.length },
               timestamp: new Date(),

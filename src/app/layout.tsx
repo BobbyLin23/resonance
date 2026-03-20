@@ -5,8 +5,10 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import "./globals.css";
 
+import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { clerkAppearanceBase } from "@/lib/clerk-appearance";
 import { TRPCReactProvider } from "@/trpc/client";
 
 const inter = Inter({
@@ -33,16 +35,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider appearance={clerkAppearanceBase}>
       <TRPCReactProvider>
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
           <body
             className={`${inter.variable} ${geistMono.variable} antialiased`}
           >
-            <TooltipProvider>
-              <NuqsAdapter>{children}</NuqsAdapter>
-            </TooltipProvider>
-            <Toaster />
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <TooltipProvider>
+                <NuqsAdapter>{children}</NuqsAdapter>
+              </TooltipProvider>
+              <Toaster />
+            </ThemeProvider>
           </body>
         </html>
       </TRPCReactProvider>

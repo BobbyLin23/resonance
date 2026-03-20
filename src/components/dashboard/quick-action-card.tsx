@@ -24,9 +24,9 @@ export function QuickActionCard({
       >
         {/* Decorative elements */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="size-12 rounded-full bg-white/30" />
+          <div className="size-12 rounded-full bg-background/30" />
         </div>
-        <div className="absolute inset-2 rounded-lg ring-2 ring-inset ring-white/20" />
+        <div className="absolute inset-2 rounded-lg ring-2 ring-inset ring-background/25" />
       </div>
 
       {/* Content */}
